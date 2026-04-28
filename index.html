@@ -1,331 +1,293 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Engineer's Hub | Innovación Electrónica</title>
-    <style>
-        :root {
-            --bg-color: #040710;
-            --panel-bg: #0b1122;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-blue: #38bdf8;
-            --accent-orange: #fb923c; /* Nuevo color para Innovación */
-            --alert: #fb7185;
-            --success: #34d399;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ingeniería Electrónica 4.0 | Juan David - UAN</title>
+  <style>
+    :root {
+      --bg: #071021;
+      --bg-soft: #0e1b35;
+      --card: #112749;
+      --accent: #35d0ff;
+      --accent-2: #80ff72;
+      --text: #e8f2ff;
+      --muted: #9cb4d8;
+      --danger: #ff6f91;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top, #122a54 0%, var(--bg) 45%, #050a15 100%);
+      line-height: 1.6;
+    }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            border-bottom: 1px solid #1e293b;
-        }
+    .container { width: min(1000px, 92vw); margin: 0 auto; }
 
-        header h1 {
-            color: var(--accent-blue);
-            margin: 0 0 10px 0;
-            font-size: 2.2rem;
-            letter-spacing: -1px;
-        }
+    header { padding: 3rem 0; text-align: center; }
+    .chip {
+      display: inline-block;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+      color: var(--accent);
+      background: rgba(53, 208, 255, 0.1);
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
 
-        header p {
-            color: var(--text-muted);
-            margin: 0;
-        }
+    h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); margin: 0; color: #fff; }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto 50px auto;
-            width: 100%;
-        }
+    /* GRID DE TEMAS */
+    .grid-temas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
 
-        /* ESTILO GENERAL DE LAS TARJETAS */
-        .card {
-            background-color: var(--panel-bg);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            border: 1px solid #1e293b;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
+    .tema-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      transition: 0.3s;
+    }
 
-        /* Efecto Hover para indicar clic */
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-blue);
-            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.1);
-        }
+    .tema-card:hover { border-color: var(--accent); background: rgba(53, 208, 255, 0.05); }
+    .icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+    .tema-card h3 { margin: 0 0 0.5rem; color: var(--accent); }
 
-        .card h2 {
-            font-size: 1.1rem;
-            margin-top: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-main);
-        }
+ .impacto-container {
+      background: rgba(14, 27, 53, 0.65);
+      border: 1px solid rgba(156, 180, 216, 0.2);
+      border-radius: 18px;
+      padding: 2rem;
+      margin: 3rem 0;
+    }
 
-        .badge {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: var(--accent-blue);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
+    .impacto-header {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
 
-        /* Solo los párrafos dentro de la card en la vista grid se ocultan */
-        .card .card-content {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-top: 15px;
-        }
+    .callout-box {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 600;
+      text-align: center;
+      padding: 1.5rem;
+      border-left: 4px solid var(--accent-2);
+      background: rgba(128, 255, 114, 0.08);
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
 
-        /* ESTILOS DE ZOOM (CUANDO SE ABRE) */
-        .card.expanded {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(1);
-            width: 90%;
-            max-width: 600px;
-            height: auto;
-            max-height: 80vh;
-            z-index: 1000;
-            cursor: default;
-            overflow-y: auto;
-            padding: 40px;
-            border: 2px solid var(--accent-blue);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-        }
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
 
-        .card.expanded .card-content {
-            display: block; /* Muestra el contenido completo */
-            font-size: 1.1rem;
-        }
+    .kpi {
+      text-align: center;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.2rem;
+      border: 1px solid rgba(53, 208, 255, 0.25);
+    }
 
-        .card.expanded h2 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
+    .kpi .num {
+      font-size: 2rem;
+      color: var(--accent);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
 
-        /* Fondo oscuro detrás del zoom */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
-            z-index: 999;
-            display: none;
-            opacity: 0;
-            transition: var(--transition);
-        }
+    .kpi .desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
 
-        .overlay.active {
-            display: block;
-            opacity: 1;
-        }
+    /* SIMULADOR */
+    .simulator {
+      background: var(--bg-soft);
+      border: 2px solid var(--card);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 3rem 0;
+    }
 
-        /* Botón cerrar para la card expandida */
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 1.5rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            display: none;
-        }
+    .controls { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; }
+    input[type=range] { width: 100%; cursor: pointer; }
 
-        .card.expanded .close-btn {
-            display: block;
-        }
+    .result-box {
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.3);
+      text-align: center;
+      font-weight: bold;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
 
-        /* Elementos IoT */
-        .sensor-data {
-            font-size: 3rem;
-            font-weight: bold;
-            text-align: center;
-            margin: 25px 0;
-            color: var(--success);
-            transition: color 0.3s ease;
-        }
+    /* ANALISIS CRITICO */
+    .critica {
+      border-left: 4px solid var(--accent-2);
+      padding: 1.5rem;
+      background: rgba(128, 255, 114, 0.05);
+      margin: 2rem 0;
+    }
 
-        /* Alertas IA */
-        .alert-box {
-            background-color: rgba(251, 113, 133, 0.05);
-            border: 1px solid var(--alert);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 2rem 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
 
-        .alert-box strong {
-            color: var(--alert);
-        }
-
-        /* Nueva Tarjeta de Innovación */
-        .card-innovation {
-            border-color: rgba(251, 146, 60, 0.3);
-        }
-        .card-innovation:hover {
-            border-color: var(--accent-orange);
-            box-shadow: 0 10px 20px rgba(251, 146, 60, 0.1);
-        }
-        .card-innovation .badge {
-            background-color: rgba(251, 146, 60, 0.1);
-            color: var(--accent-orange);
-        }
-        .card-innovation h2 {
-            color: var(--accent-orange);
-        }
-        .card-innovation.expanded {
-            border-color: var(--accent-orange);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-muted);
-            margin-top: auto;
-            font-size: 0.8rem;
-        }
-    </style>
+    .fuentes { text-align: left; margin-top: 1rem; opacity: 0.8; }
+  </style>
 </head>
 <body>
 
-    <div class="overlay" id="overlay"></div>
+  <header class="container">
+    <span class="chip">Laboratorio Digital: Ing. Electrónica</span>
+    <h1>Transformación y Rol del Ingeniero</h1>
+    <p style="color: var(--muted)">Análisis aplicado de los pilares tecnológicos industriales</p>
+  </header>
 
-    <header>
-        <h1>Centro Ingeniero</h1>
-        <p>Integración de Conceptos | Ingeniería Electrónica | Juan David Rincon</p>
-    </header>
+  <main class="container">
+    
+    <section class="grid-temas">
+      <div class="tema-card">
+        <span class="icon">🔄</span>
+        <h3>Transformación Digital</h3>
+        <p>No es solo digitalizar papel, es rediseñar la ingeniería para que los datos fluyan desde un sensor hasta la gerencia en milisegundos.</p>
+      </div>
+      <div class="tema-card">
+        <span class="icon">🤖</span>
+        <h3>Inteligencia Artificial</h3>
+        <p>Aplicada al <b>Mantenimiento Predictivo</b>: algoritmos que detectan patrones de falla imperceptibles para el ojo humano.</p>
+      </div>
+      <div class="tema-card">
+        <span class="icon">🌐</span>
+        <h3>IoT Industrial</h3>
+        <p>La red de nervios de la fábrica. Sensores inteligentes que reportan estado, consumo y salud del sistema vía nube.</p>
+      </div>
+      <div class="tema-card">
+        <span class="icon">🛠️</span>
+        <h3>Herramientas Tecnológicas</h3>
+        <p>Software de simulación, gemelos digitales y sistemas SCADA modernos que permiten al ingeniero iterar sin romper hardware real.</p>
+      </div>
+      <div class="tema-card">
+        <span class="icon">💡</span>
+        <h3>Innovación</h3>
+        <p>La capacidad de encontrar soluciones disruptivas (como el uso de drones para inspección de torres de alta tensión) usando tecnología existente.</p>
+      </div>
+      <div class="tema-card">
+        <span class="icon">📢</span>
+        <h3>Comunicación Asertiva</h3>
+        <p>Un ingeniero debe traducir el "lenguaje de bits" a "lenguaje de valor". Si no comunicas el impacto de un sistema, la tecnología no se adopta.</p>
+      </div>
+    </section>
 
-    <div class="grid-container">
+    <section class="simulator">
+      <h2>Simulación: Diagnóstico por IA en Planta</h2>
+      <p>Ajusta las variables de este motor industrial para ver cómo la IA generaría una alerta de mantenimiento.</p>
+      
+      <div class="controls">
+        <label>Temperatura Operativa: <b id="txtTemp">70</b>°C</label>
+        <input type="range" id="rngTemp" min="40" max="110" value="70">
         
-        <div class="card" onclick="openCard(this)">
-            <span class="close-btn">&times;</span>
-            <h2>Módulo IoT <span class="badge">📡 En vivo</span></h2>
-            <div class="sensor-data">
-                <span id="distancia-sensor">145</span><span style="font-size: 1.5rem">cm</span>
-            </div>
-            <div class="card-content">
-                <p><strong>Herramientas Tecnológicas en Ingeniería:</strong> Esta tarjeta simula la telemetría en tiempo real recibida de un microcontrolador ESP32 conectado a sensores ultrasónicos. El <strong>IoT</strong> permite que dispositivos físicos recopilen y transmitan datos críticos a esta interfaz para monitoreo remoto inmediato.</p>
-                <p>Este sistema demuestra cómo la electrónica crea el puente entre el mundo físico (sensores de distancia) y el digital (esta web).</p>
-            </div>
-        </div>
+        <label>Frecuencia de Vibración: <b id="txtVib">3</b> mm/s</label>
+        <input type="range" id="rngVib" min="1" max="15" value="3">
+      </div>
 
-        <div class="card" onclick="openCard(this)">
-            <span class="close-btn">&times;</span>
-            <h2>Análisis Predictivo (IA) <span class="badge">🧠 Análisis</span></h2>
-            <div class="card-content">
-                <p>La <strong>Inteligencia Artificial</strong> en ingeniería no es solo chat; es la capacidad de analizar grandes volúmenes de datos históricos de sensores para optimizar procesos y tomar decisiones críticas.</p>
-                <p>Como futuro ingeniero, usarás modelos de ML (Machine Learning) para el mantenimiento predictivo, ahorrando costos y previniendo fallos en sistemas críticos.</p>
-                <div class="alert-box">
-                    <strong>⚠️ Alerta de IA: Mantenimiento Preventivo</strong>
-                    <p style="margin: 5px 0 0 0; font-size: 0.9em">Probabilidad de fallo en sensor frontal: 87%. Tiempo estimado de fallo: 48h. Se recomienda revisión.</p>
-                </div>
-            </div>
-        </div>
+      <div class="result-box" id="panel">
+        SISTEMA ESTABLE: Análisis de IA dentro de parámetros nominales.
+      </div>
+    </section>
 
-        <div class="card" onclick="openCard(this)">
-            <span class="close-btn">&times;</span>
-            <h2>Transformación Digital <span class="badge">🔄 Impacto</span></h2>
-            <div class="card-content">
-                <p>La <strong>Transformación Digital</strong> implica integrar estas tecnologías digitales (IoT, IA, Datos) en todos los aspectos de una organización. No es solo "usar computadoras", es cambiar radicalmente la forma en que una empresa opera y entrega valor.</p>
-                <p>En este proyecto, un simple bastón se transforma en un ecosistema de datos que mejora vidas, demostrando una verdadera adaptación tecnológica.</p>
-            </div>
-        </div>
 
-        <div class="card card-innovation" onclick="openCard(this)">
-            <span class="close-btn">&times;</span>
-            <h2>Innovación y Comunicación <span class="badge">💡 Puente</span></h2>
-            <div class="card-content">
-                <p>Un ingeniero electrónico moderno debe ser un maestro de la <strong>Innovación y la Comunicación</strong>. No basta con soldar un circuito perfecto o programar el algoritmo más eficiente si no puedes comunicar su valor.</p>
-                <p>Diseñar este dashboard intuitivo es innovar. Al traducir datos técnicos crudos (telemetría compleja) en información visual clara (gráficos, alertas), estás comunicando decisiones críticas a tu equipo y usuarios, demostrando el verdadero valor social de tu ingeniería.</p>
-            </div>
+    <section class="impacto-container">
+      <div class="impacto-header">Innovación + Comunicación + Proyección profesional</div>
+      <div class="callout-box">
+        El ingeniero electrónico del presente no solo diseña circuitos: integra datos, comunica hallazgos y lidera cambios tecnológicos.
+      </div>
+      <div class="kpis">
+        <div class="kpi">
+          <span class="num">+65%</span>
+          <span class="desc">Eficiencia con monitoreo continuo</span>
         </div>
-
-        <div class="card" onclick="openCard(this)">
-            <span class="close-btn">&times;</span>
-            <h2>Proyección Profesional <span class="badge">🚀 Futuro</span></h2>
-            <div class="card-content">
-                <p>La <strong>Proyección profesional para ingenieros</strong> requiere hoy habilidades interdisciplinarias, pensamiento crítico y una capacidad constante de adaptación al cambio. </p>
-                <p>Al dominar la electrónica, el IoT y la IA, y al saber comunicar estas soluciones complejas, te proyectas como el perfil que las empresas de tecnología necesitan para liderar la transformación digital del mañana.</p>
-            </div>
+        <div class="kpi">
+          <span class="num">-40%</span>
+          <span class="desc">Paradas inesperadas por mantenimiento predictivo</span>
         </div>
+        <div class="kpi">
+          <span class="num">24/7</span>
+          <span class="desc">Visibilidad remota de activos IoT</span>
+        </div>
+        <div class="kpi">
+          <span class="num">3X</span>
+          <span class="desc">Mayor valor profesional interdisciplinario</span>
+        </div>
+      </div>
+    </section>
 
+
+    <section class="critica">
+      <h2>Análisis Crítico: El Ingeniero como Integrador</h2>
+      <p>
+        Históricamente, el ingeniero electrónico se centraba en el hardware aislado. La <b>Transformación Digital</b> nos obliga a ser profesionales interdisciplinarios. Ya no basta con saber de circuitos; debemos entender de ética de datos y seguridad informática.
+      </p>
+      <p><b>Proyección:</b> Mi rol evoluciona de "reparador de sistemas" a "arquitecto de soluciones inteligentes". El reto no es tecnológico, es de adaptación al cambio constante.</p>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <p>Juan David Rincon Medellin | Ingeniería Electrónica - Universidad Antonio Nariño</p>
+    <div class="fuentes">
+      <b>Fuentes consultadas:</b><br>
+      • Material de clase: "Transformación Digital y el futuro de la Ingeniería".
     </div>
+  </footer>
 
-    <footer>
-        <p>Proyecto para la clase de Introduccion a la Ing. Universidad Antonio Nariño.</p>
-    </footer>
+  <script>
+    const rngTemp = document.getElementById('rngTemp');
+    const rngVib = document.getElementById('rngVib');
+    const txtTemp = document.getElementById('txtTemp');
+    const txtVib = document.getElementById('txtVib');
+    const panel = document.getElementById('panel');
 
-    <script>
-        // --- 1. LÓGICA DE INTERACTIVIDAD (ZOOM/MODAL) ---
-        const overlay = document.getElementById('overlay');
+    function analizar() {
+      const t = rngTemp.value;
+      const v = rngVib.value;
+      txtTemp.innerText = t;
+      txtVib.innerText = v;
 
-        function openCard(card) {
-            if (card.classList.contains('expanded')) return; // Evita re-abrir si ya está abierta
+      if(t > 90 && v > 10) {
+        panel.innerHTML = "⚠️ ALERTA CRÍTICA: La IA predice falla inminente. Apagado preventivo sugerido.";
+        panel.style.color = "var(--danger)";
+        panel.style.borderColor = "var(--danger)";
+      } else if (t > 80 || v > 7) {
+        panel.innerHTML = "🟡 AVISO: Mantenimiento predictivo requerido en las próximas 24h.";
+        panel.style.color = "#ffd166";
+        panel.style.borderColor = "#ffd166";
+      } else {
+        panel.innerHTML = "✅ ESTADO ÓPTIMO: Operación eficiente detectada.";
+        panel.style.color = "var(--accent-2)";
+        panel.style.borderColor = "var(--accent-2)";
+      }
+    }
 
-            overlay.classList.add('active');
-            card.classList.add('expanded');
-            
-            // Lógica para cerrar si se hace clic en el overlay o en el botón cerrar
-            const closeBtn = card.querySelector('.close-btn');
-            
-            // Función de cierre unificada
-            const closeAll = function() {
-                overlay.classList.remove('active');
-                card.classList.remove('expanded');
-                overlay.removeEventListener('click', closeAll);
-                closeBtn.removeEventListener('click', closeAll);
-            };
-
-            overlay.addEventListener('click', closeAll);
-            closeBtn.addEventListener('click', closeAll);
-        }
-
-        // --- 2. LÓGICA DE SIMULACIÓN IoT (DATO EN VIVO) ---
-        setInterval(() => {
-            const distancia = Math.floor(Math.random() * (200 - 15 + 1)) + 15;
-            const elementoDistancia = document.getElementById('distancia-sensor');
-            if(elementoDistancia) {
-                elementoDistancia.innerText = distancia;
-                if(distancia < 40) {
-                    elementoDistancia.style.color = '#fb7185'; // Rojo
-                } else if (distancia < 90) {
-                    elementoDistancia.style.color = '#facc15'; // Amarillo
-                } else {
-                    elementoDistancia.style.color = '#34d399'; // Verde
-                }
-            }
-        }, 1200);
-    </script>
-
+    rngTemp.oninput = analizar;
+    rngVib.oninput = analizar;
+  </script>
 </body>
 </html>
