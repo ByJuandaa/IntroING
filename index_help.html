@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Engineer's Hub | Innovación Electrónica</title>
+    <style>
+        :root {
+            --bg-color: #040710;
+            --panel-bg: #0b1122;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-orange: #fb923c; /* Nuevo color para Innovación */
+            --alert: #fb7185;
+            --success: #34d399;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        header h1 {
+            color: var(--accent-blue);
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto 50px auto;
+            width: 100%;
+        }
+
+        /* ESTILO GENERAL DE LAS TARJETAS */
+        .card {
+            background-color: var(--panel-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border: 1px solid #1e293b;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto Hover para indicar clic */
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            margin-top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-main);
+        }
+
+        .badge {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--accent-blue);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Solo los párrafos dentro de la card en la vista grid se ocultan */
+        .card .card-content {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        /* ESTILOS DE ZOOM (CUANDO SE ABRE) */
+        .card.expanded {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            width: 90%;
+            max-width: 600px;
+            height: auto;
+            max-height: 80vh;
+            z-index: 1000;
+            cursor: default;
+            overflow-y: auto;
+            padding: 40px;
+            border: 2px solid var(--accent-blue);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        }
+
+        .card.expanded .card-content {
+            display: block; /* Muestra el contenido completo */
+            font-size: 1.1rem;
+        }
+
+        .card.expanded h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        /* Fondo oscuro detrás del zoom */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            display: none;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Botón cerrar para la card expandida */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: none;
+        }
+
+        .card.expanded .close-btn {
+            display: block;
+        }
+
+        /* Elementos IoT */
+        .sensor-data {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 25px 0;
+            color: var(--success);
+            transition: color 0.3s ease;
+        }
+
+        /* Alertas IA */
+        .alert-box {
+            background-color: rgba(251, 113, 133, 0.05);
+            border: 1px solid var(--alert);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .alert-box strong {
+            color: var(--alert);
+        }
+
+        /* Nueva Tarjeta de Innovación */
+        .card-innovation {
+            border-color: rgba(251, 146, 60, 0.3);
+        }
+        .card-innovation:hover {
+            border-color: var(--accent-orange);
+            box-shadow: 0 10px 20px rgba(251, 146, 60, 0.1);
+        }
+        .card-innovation .badge {
+            background-color: rgba(251, 146, 60, 0.1);
+            color: var(--accent-orange);
+        }
+        .card-innovation h2 {
+            color: var(--accent-orange);
+        }
+        .card-innovation.expanded {
+            border-color: var(--accent-orange);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            margin-top: auto;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay"></div>
+
+    <header>
+        <h1>Centro Ingeniero</h1>
+        <p>Integración de Conceptos | Ingeniería Electrónica | Juan David Rincon</p>
+    </header>
+
+    <div class="grid-container">
+        
+        <div class="card" onclick="openCard(this)">
+            <span class="close-btn">&times;</span>
+            <h2>Módulo IoT <span class="badge">📡 En vivo</span></h2>
+            <div class="sensor-data">
+                <span id="distancia-sensor">145</span><span style="font-size: 1.5rem">cm</span>
+            </div>
+            <div class="card-content">
+                <p><strong>Herramientas Tecnológicas en Ingeniería:</strong> Esta tarjeta simula la telemetría en tiempo real recibida de un microcontrolador ESP32 conectado a sensores ultrasónicos. El <strong>IoT</strong> permite que dispositivos físicos recopilen y transmitan datos críticos a esta interfaz para monitoreo remoto inmediato.</p>
+                <p>Este sistema demuestra cómo la electrónica crea el puente entre el mundo físico (sensores de distancia) y el digital (esta web).</p>
+            </div>
+        </div>
+
+        <div class="card" onclick="openCard(this)">
+            <span class="close-btn">&times;</span>
+            <h2>Análisis Predictivo (IA) <span class="badge">🧠 Análisis</span></h2>
+            <div class="card-content">
+                <p>La <strong>Inteligencia Artificial</strong> en ingeniería no es solo chat; es la capacidad de analizar grandes volúmenes de datos históricos de sensores para optimizar procesos y tomar decisiones críticas.</p>
+                <p>Como futuro ingeniero, usarás modelos de ML (Machine Learning) para el mantenimiento predictivo, ahorrando costos y previniendo fallos en sistemas críticos.</p>
+                <div class="alert-box">
+                    <strong>⚠️ Alerta de IA: Mantenimiento Preventivo</strong>
+                    <p style="margin: 5px 0 0 0; font-size: 0.9em">Probabilidad de fallo en sensor frontal: 87%. Tiempo estimado de fallo: 48h. Se recomienda revisión.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" onclick="openCard(this)">
+            <span class="close-btn">&times;</span>
+            <h2>Transformación Digital <span class="badge">🔄 Impacto</span></h2>
+            <div class="card-content">
+                <p>La <strong>Transformación Digital</strong> implica integrar estas tecnologías digitales (IoT, IA, Datos) en todos los aspectos de una organización. No es solo "usar computadoras", es cambiar radicalmente la forma en que una empresa opera y entrega valor.</p>
+                <p>En este proyecto, un simple bastón se transforma en un ecosistema de datos que mejora vidas, demostrando una verdadera adaptación tecnológica.</p>
+            </div>
+        </div>
+
+        <div class="card card-innovation" onclick="openCard(this)">
+            <span class="close-btn">&times;</span>
+            <h2>Innovación y Comunicación <span class="badge">💡 Puente</span></h2>
+            <div class="card-content">
+                <p>Un ingeniero electrónico moderno debe ser un maestro de la <strong>Innovación y la Comunicación</strong>. No basta con soldar un circuito perfecto o programar el algoritmo más eficiente si no puedes comunicar su valor.</p>
+                <p>Diseñar este dashboard intuitivo es innovar. Al traducir datos técnicos crudos (telemetría compleja) en información visual clara (gráficos, alertas), estás comunicando decisiones críticas a tu equipo y usuarios, demostrando el verdadero valor social de tu ingeniería.</p>
+            </div>
+        </div>
+
+        <div class="card" onclick="openCard(this)">
+            <span class="close-btn">&times;</span>
+            <h2>Proyección Profesional <span class="badge">🚀 Futuro</span></h2>
+            <div class="card-content">
+                <p>La <strong>Proyección profesional para ingenieros</strong> requiere hoy habilidades interdisciplinarias, pensamiento crítico y una capacidad constante de adaptación al cambio. </p>
+                <p>Al dominar la electrónica, el IoT y la IA, y al saber comunicar estas soluciones complejas, te proyectas como el perfil que las empresas de tecnología necesitan para liderar la transformación digital del mañana.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Proyecto para la clase de Introduccion a la Ing. Universidad Antonio Nariño.</p>
+    </footer>
+
+    <script>
+        // --- 1. LÓGICA DE INTERACTIVIDAD (ZOOM/MODAL) ---
+        const overlay = document.getElementById('overlay');
+
+        function openCard(card) {
+            if (card.classList.contains('expanded')) return; // Evita re-abrir si ya está abierta
+
+            overlay.classList.add('active');
+            card.classList.add('expanded');
+            
+            // Lógica para cerrar si se hace clic en el overlay o en el botón cerrar
+            const closeBtn = card.querySelector('.close-btn');
+            
+            // Función de cierre unificada
+            const closeAll = function() {
+                overlay.classList.remove('active');
+                card.classList.remove('expanded');
+                overlay.removeEventListener('click', closeAll);
+                closeBtn.removeEventListener('click', closeAll);
+            };
+
+            overlay.addEventListener('click', closeAll);
+            closeBtn.addEventListener('click', closeAll);
+        }
+
+        // --- 2. LÓGICA DE SIMULACIÓN IoT (DATO EN VIVO) ---
+        setInterval(() => {
+            const distancia = Math.floor(Math.random() * (200 - 15 + 1)) + 15;
+            const elementoDistancia = document.getElementById('distancia-sensor');
+            if(elementoDistancia) {
+                elementoDistancia.innerText = distancia;
+                if(distancia < 40) {
+                    elementoDistancia.style.color = '#fb7185'; // Rojo
+                } else if (distancia < 90) {
+                    elementoDistancia.style.color = '#facc15'; // Amarillo
+                } else {
+                    elementoDistancia.style.color = '#34d399'; // Verde
+                }
+            }
+        }, 1200);
+    </script>
+
+</body>
+</html>
